@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background"
+    tools:context=".SignUp">
+
+
+    <ImageView
+        android:id="@+id/iv_icon"
+        android:layout_width="0dp"
+        android:layout_height="122dp"
+        app:layout_constraintEnd_toEndOf="@id/gl_right"
+        app:layout_constraintStart_toStartOf="@id/gl_left"
+        app:layout_constraintTop_toTopOf="@id/gl_mid"
+        app:layout_constraintBottom_toTopOf="@id/gl_center"
+        app:srcCompat="@drawable/hotdog" />
+
+    <EditText
+        android:id="@+id/et_email"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="#FAFAD2"
+        android:hint="Email address"
+        android:inputType="text"
+        android:maxLines="1"
+        android:padding="15dp"
+        android:textCursorDrawable="@null"
+        app:layout_constraintEnd_toStartOf="@id/gl_right"
+        app:layout_constraintBottom_toTopOf="@id/tv_user"
+        app:layout_constraintStart_toStartOf="@id/gl_left"
+        app:layout_constraintTop_toBottomOf="@+id/iv_icon" />
+
+
+    <EditText
+        android:id="@+id/et_pw"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="#FAFAD2"
+        android:drawableRight="@drawable/visible_off"
+        android:hint="Password"
+        android:inputType="text"
+        android:maxLines="1"
+        android:padding="16dp"
+        android:textCursorDrawable="@null"
+        android:password="true"
+        app:layout_constraintEnd_toEndOf="@id/gl_right"
+        app:layout_constraintStart_toStartOf="@id/gl_left"
+        app:layout_constraintTop_toBottomOf="@id/tv_user" />
+
+    <EditText
+        android:id="@+id/et_pw_check"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="55dp"
+        android:background="#FAFAD2"
+        android:drawableRight="@drawable/visible_off"
+        android:hint="Confirm Password"
+        android:inputType="text"
+        android:maxLines="1"
+        android:padding="16dp"
+        android:textCursorDrawable="@null"
+        android:password="true"
+        app:layout_constraintEnd_toEndOf="@id/gl_right"
+        app:layout_constraintStart_toStartOf="@id/gl_left"
+        app:layout_constraintTop_toBottomOf="@id/et_pw" />
+
+    <EditText
+        android:id="@+id/et_first"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="#FAFAD2"
+        android:hint="First"
+        android:inputType="text"
+        android:maxLines="1"
+        android:padding="16dp"
+        android:textCursorDrawable="@null"
+        app:layout_constraintEnd_toStartOf="@id/et_last"
+        app:layout_constraintStart_toStartOf="@id/gl_left"
+        app:layout_constraintTop_toBottomOf="@id/et_pw_check" />
+
+    <EditText
+        android:id="@+id/et_last"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:background="#FAFAD2"
+        android:hint="Last"
+        android:inputType="text"
+        android:maxLines="1"
+        android:padding="16dp"
+        android:textCursorDrawable="@null"
+        app:layout_constraintBottom_toBottomOf="@id/et_first"
+        app:layout_constraintEnd_toEndOf="@id/gl_right"
+        app:layout_constraintStart_toEndOf="@id/et_first"
+        app:layout_constraintTop_toTopOf="@id/et_first" />
+
+    <EditText
+        android:id="@+id/et_phone"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="#FAFAD2"
+        android:hint="Phone Number"
+        android:inputType="text"
+        android:maxLines="1"
+        android:padding="16dp"
+        android:textCursorDrawable="@null"
+        app:layout_constraintEnd_toEndOf="@id/gl_right"
+        app:layout_constraintStart_toStartOf="@id/gl_left"
+        app:layout_constraintTop_toBottomOf="@id/et_first" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/gl_center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.33"/>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/gl_mid"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.12" />
+
+    <View
+        android:id="@+id/view_right"
+        android:layout_width="0dp"
+        android:layout_height="3dp"
+        android:background="#FAFAD2"
+        app:layout_constraintBottom_toBottomOf="@id/view_left"
+        app:layout_constraintEnd_toEndOf="@id/gl_right"
+        app:layout_constraintStart_toEndOf="@id/tv_user"
+        app:layout_constraintTop_toTopOf="@id/view_left" />
+
+    <View
+        android:id="@+id/view_left"
+        android:layout_width="0dp"
+        android:layout_height="3dp"
+        android:layout_marginTop="23dp"
+        android:background="#FAFAD2"
+        app:layout_constraintEnd_toStartOf="@id/tv_user"
+        app:layout_constraintStart_toStartOf="@id/gl_left"
+        app:layout_constraintTop_toBottomOf="@id/et_email" />
+
+    <TextView
+        android:id="@+id/tv_user"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:text="User Info"
+        android:textSize="22sp"
+        app:layout_constraintBottom_toBottomOf="@id/view_left"
+        app:layout_constraintEnd_toStartOf="@id/view_right"
+        app:layout_constraintStart_toEndOf="@id/view_left"
+        app:layout_constraintTop_toTopOf="@id/view_left" />
+
+    <Button
+        android:id="@+id/btn_sign"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/btn_round_shape"
+        android:text="SIGN UP !"
+        app:layout_constraintStart_toStartOf="@id/gl_left"
+        app:layout_constraintTop_toBottomOf="@id/et_phone"
+        app:layout_constraintEnd_toEndOf="@id/gl_right"/>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/gl_left"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.1" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/gl_right"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.9" />
+
+    <TextView
+        android:id="@+id/tv_sign_up"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="SIGN UP"
+        android:textSize="40sp"
+        app:layout_constraintBottom_toBottomOf="@id/gl_mid"
+        app:layout_constraintEnd_toEndOf="@id/gl_right"
+        app:layout_constraintStart_toStartOf="@id/gl_left" />
+
+    <TextView
+        android:id="@+id/tv_pwInfo"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:padding="5dp"
+        android:layout_marginTop="5dp"
+        android:text="* Must contain 1 letters, 1 number, \n   1 special character, between 8-16 long"
+        app:layout_constraintTop_toBottomOf="@id/et_pw"
+        app:layout_constraintStart_toStartOf="@id/gl_left"
+        app:layout_constraintEnd_toEndOf="@id/gl_right"/>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

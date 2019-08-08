@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background"
+    tools:context=".ForgottenPassword">
+
+    <TextView
+        android:id="@+id/tv_forget"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="PASSWORD CHANGE"
+        android:textSize="30sp"
+        app:layout_constraintBottom_toBottomOf="@id/gl_mid"
+        app:layout_constraintEnd_toEndOf="@id/gl_right"
+        app:layout_constraintStart_toStartOf="@id/gl_left" />
+
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/gl_center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.42" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/gl_left"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.1" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/gl_right"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.9" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/gl_mid"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.27" />
+
+    <ImageView
+        android:id="@+id/iv_icon"
+        android:layout_width="134dp"
+        android:layout_height="122dp"
+        app:layout_constraintEnd_toEndOf="@id/gl_right"
+        app:layout_constraintStart_toStartOf="@id/gl_left"
+        app:layout_constraintTop_toTopOf="@id/gl_mid"
+        app:srcCompat="@drawable/hotdog" />
+
+    <EditText
+        android:id="@+id/et_pw"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="#FAFAD2"
+        android:hint="Password"
+        android:inputType="text"
+        android:maxLines="1"
+        android:padding="15dp"
+        android:textCursorDrawable="@null"
+        app:layout_constraintStart_toStartOf="@id/gl_left"
+        app:layout_constraintTop_toBottomOf="@+id/iv_icon"
+        app:layout_constraintTop_toTopOf="@id/gl_center"
+        app:layout_constraintEnd_toEndOf="@id/gl_right"/>
+
+    <EditText
+        android:id="@+id/et_new_pw"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="#FAFAD2"
+        android:hint="New password"
+        android:inputType="text"
+        android:maxLines="1"
+        android:padding="15dp"
+        android:textCursorDrawable="@null"
+        app:layout_constraintTop_toBottomOf="@id/et_pw"
+        app:layout_constraintStart_toStartOf="@id/gl_left"
+        app:layout_constraintEnd_toEndOf="@id/gl_right"/>
+
+    <EditText
+        android:id="@+id/et_con_new_pw"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="#FAFAD2"
+        android:hint="Confirm password"
+        android:inputType="text"
+        android:maxLines="1"
+        android:padding="15dp"
+        android:textCursorDrawable="@null"
+        app:layout_constraintTop_toBottomOf="@id/tv_pwInfo"
+        app:layout_constraintStart_toStartOf="@id/gl_left"
+        app:layout_constraintEnd_toEndOf="@id/gl_right"
+        />
+
+    <Button
+        android:id="@+id/btn_change"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/btn_round_shape"
+        android:text="PASSWORD CHANGE"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="@id/gl_right"
+        app:layout_constraintStart_toStartOf="@id/gl_left"
+        app:layout_constraintTop_toBottomOf="@id/et_con_new_pw"/>
+
+    <TextView
+        android:id="@+id/tv_pwInfo"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:padding="5dp"
+        android:layout_marginTop="5dp"
+        android:text="* Must contain 1 letters, 1 number, \n   1 special character, between 8-16 long"
+        app:layout_constraintTop_toBottomOf="@id/et_new_pw"
+        app:layout_constraintStart_toStartOf="@id/gl_left"
+        app:layout_constraintEnd_toEndOf="@id/gl_right"/>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

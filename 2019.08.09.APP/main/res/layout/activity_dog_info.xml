@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background"
+    tools:context=".ForgottenPassword">
+
+    <TextView
+        android:id="@+id/tv_forget"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="INPUT DOG INFORMATION"
+        android:textSize="25sp"
+        app:layout_constraintBottom_toBottomOf="@id/gl_mid"
+        app:layout_constraintEnd_toEndOf="@id/gl_right"
+        app:layout_constraintStart_toStartOf="@id/gl_left" />
+
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/gl_center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.5" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/gl_left"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.1" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/gl_right"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.9" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/gl_mid"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.33" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/gl_mid2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.6"/>
+
+    <ImageView
+        android:id="@+id/iv_icon"
+        android:layout_width="134dp"
+        android:layout_height="122dp"
+        app:layout_constraintEnd_toEndOf="@id/gl_right"
+        app:layout_constraintStart_toStartOf="@id/gl_left"
+        app:layout_constraintTop_toTopOf="@id/gl_mid"
+        app:srcCompat="@drawable/hotdog" />
+
+    <EditText
+        android:id="@+id/et_dog_name"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="#FAFAD2"
+        android:hint="Dog name"
+        android:inputType="text"
+        android:maxLines="1"
+        android:padding="15dp"
+        android:textCursorDrawable="@null"
+        app:layout_constraintEnd_toStartOf="@+id/gl_mid2"
+        app:layout_constraintStart_toStartOf="@id/gl_left"
+        app:layout_constraintTop_toBottomOf="@+id/iv_icon"
+        app:layout_constraintTop_toTopOf="@id/gl_center" />
+
+    <Spinner
+        android:id="@+id/sp_dog_type"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:entries="@array/dog_type"
+        android:layout_marginLeft="8dp"
+        android:theme="@style/Spinner"
+        android:background="@drawable/spinner_background"
+        app:layout_constraintBottom_toBottomOf="@id/et_dog_name"
+        app:layout_constraintEnd_toEndOf="@id/gl_right"
+        app:layout_constraintStart_toEndOf="@id/et_dog_name"
+        app:layout_constraintTop_toTopOf="@id/et_dog_name"></Spinner>
+
+    <EditText
+        android:id="@+id/et_dog_birth"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="#FAFAD2"
+        android:hint="Dog birth"
+        android:inputType="text"
+        android:maxLines="1"
+        android:padding="15dp"
+        android:textCursorDrawable="@null"
+        app:layout_constraintEnd_toEndOf="@id/gl_mid2"
+        app:layout_constraintStart_toStartOf="@id/gl_left"
+        app:layout_constraintTop_toBottomOf="@id/et_dog_name" />
+
+    <Spinner
+        android:id="@+id/sp_dog_gender"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginLeft="8dp"
+        android:theme="@style/Spinner"
+        android:entries="@array/dog_gender"
+        android:background="@drawable/spinner_background"
+        app:layout_constraintBottom_toBottomOf="@id/et_dog_birth"
+        app:layout_constraintEnd_toEndOf="@id/gl_right"
+        app:layout_constraintStart_toEndOf="@id/et_dog_birth"
+        app:layout_constraintTop_toTopOf="@id/et_dog_birth"></Spinner>
+
+    <Button
+        android:id="@+id/btn_save"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/btn_round_shape"
+        android:text="DATA SAVE !"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="@id/gl_right"
+        app:layout_constraintStart_toStartOf="@id/gl_left"
+        app:layout_constraintTop_toBottomOf="@id/et_dog_birth" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

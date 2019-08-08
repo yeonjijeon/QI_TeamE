@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_dog_info"
+            android:icon="@drawable/ic_menu_gallery"
+            android:title="Dog Information" />
+        <item
+            android:id="@+id/nav_pw_change"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="Password Change" />
+        <item
+            android:id="@+id/nav_sign_out"
+            android:icon="@drawable/ic_menu_manage"
+            android:title="Sign Out" />
+    </group>
+
+    <item android:title="Sensor Part">
+        <menu>
+            <item
+                android:id="@+id/nav_sensor_regi"
+                android:icon="@drawable/ic_menu_share"
+                android:title="Sensor Registration" />
+            <item
+                android:id="@+id/nav_sensor_deregi"
+                android:icon="@drawable/ic_menu_send"
+                android:title="Sensor Deregistration" />
+
+            <item
+                android:id="@+id/nav_sensor_list"
+                android:icon="@drawable/ic_menu_camera"
+                android:title="Sensor List View" />
+        </menu>
+    </item>
+
+</menu>

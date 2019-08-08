@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="dog_type">
+        <item>SMALL</item>
+        <item>MEDIUM</item>
+        <item>BIG</item>
+    </string-array>
+
+    <string-array name="dog_gender">
+        <item>MALE</item>
+        <item>FEMALE</item>
+    </string-array>
+</resources>
