@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>Heart Dog - USER PASSWORD CHANGE</title>
+
+  <!-- Custom fonts for this template-->
+  <link href="/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+
+  <!-- Custom styles for this template-->
+  <link href="/css/sb-admin-2.min.css" rel="stylesheet">
+  <script>
+        var getUSN = localStorage.getItem('USN');
+        if (getUSN === null)
+            window.location.replace("http://teame-iot.calit2.net/");
+  </script>
+
+
+</head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script type="text/javascript">
+ var request;
+    $(document).ready(function() {
+
+
+        $("#new_password, #confirm_new_password").keyup(checkPasswordMatch);
+        {# $("#new_password").keyup(checkPasswordForm); #}
+
+        var getUSN = localStorage.getItem('USN');
+
+        $('#cp_form').submit(function() {
+          
+            var new_pwd = $("#new_password").val();
+            var confirm_new_pwd = $("#confirm_new_password").val();
+
+            var posting = $.post('/heartdog/change_pwd2/process', {
+                USN: getUSN,
+                new_password: new_pwd,
+                confirm_new_password: confirm_new_pwd
+            });
+
+            // Callback handler that will be called on success
+            posting.done(function(data) { // Log a message to the console
+                if (data.result_code == 0) {
+                    alert(data.success_message);
+                    window.location.replace("http://teame-iot.calit2.net/heartdog/signin");
+                } else {
+                    alert(data.error_message);
+                    window.location.replace("http://teame-iot.calit2.net/heartdog/change_pwd2");
+                }
+            });
+
+            // Callback handler that will be called on failure
+            posting.fail(function(data) { // Log the error to the console
+            alert("fail");
+                print_r("The following error occurred: " + data);
+
+            });
+        });
+    });
+
+    function checkPasswordMatch() {
+        var new_password = $("#new_password").val();
+        var confirm_new_password = $("#confirm_new_password").val();
+
+        if (new_password != confirm_new_password) {
+            var match = "The passwords do not match."
+            var result = match.fontcolor('red');
+            $("#divCheckPasswordMatch").html(result);
+        } else {
+            var match = "The passwords match!";
+            var result = match.fontcolor('green');
+            $("#divCheckPasswordMatch").html(result);
+        }
+    }
+
+    {# function checkPasswordForm() {
+        var new_password = $("#new_password").val();
+        var confirm_new_password = $("#confirm_new_password").val();
+        var password_regex1 = /([a-z].*[A-Z])|([A-Z].*[a-z])([0-9])+([!,%,&,@,#,$,^,*,?,_,~])/;
+        var password_regex2 = /([0-9])/;
+        var password_regex3 = /([!,%,&,@,#,$,^,*,?,_,~])/;
+
+        if (new_password.length < 8 || password_regex1.test(new_password) == false || password_regex2.test(new_password) == false || password_regex3.test(new_password) == false) {
+            var match = "Password must be at least 8 Digits long and contains one upper case, one Lower case and one special character."
+            var result = match.fontcolor('red');
+            $("#divCheckPasswordForm").html(result);
+        } else {
+            var match = "Good password."
+            var result = match.fontcolor('green');
+            $("#divCheckPasswordForm").html(result);
+        }
+    } #}
+
+
+    function formCheck(frm) {
+
+        if (frm.new_password.value == "") {
+            alert("Please enter your new password.");
+            frm.new_password.focus();
+            return false;
+        }
+        if (frm.confirm_new_password.value == "") {
+            alert("Please enter your confirm password.");
+            frm.confirm_new_password.focus();
+            return false;
+        }
+
+        var new_pwd = $("#new_password").val();
+        var confirm_new_pwd = $("#confirm_new_password").val();
+        var password_regex1 = /([a-z].*[A-Z])|([A-Z].*[a-z])([0-9])+([!,%,&,@,#,$,^,*,?,_,~])/;
+        var password_regex2 = /([0-9])/;
+        var password_regex3 = /([!,%,&,@,#,$,^,*,?,_,~])/;
+
+        if (new_pwd.length < 8 || password_regex1.test(new_pwd) == false || password_regex2.test(new_pwd) == false || password_regex3.test(new_pwd) == false) {
+            alert("Password Must be at least 8 Digitslong and contains one UpperCase, one LowerCase and One special character.");
+            return false;
+        } else if (new_pwd !== confirm_new_pwd) {
+            alert("Passwords do not match.");
+            return false;
+        }
+        return true;
+    }
+</script>
+
+<body class="bg-gradient-primary">
+
+  <div class="container">
+
+    <div class="card o-hidden border-0 shadow-lg my-5">
+      <div class="card-body p-0">
+        <!-- Nested Row within Card Body -->
+        <div class="row">
+          <div class="col-lg-5 d-none d-lg-block bg-register-image"></div>
+          <div class="col-lg-7">
+            <div class="p-5">
+              <div class="text-center">
+                <h1 class="h4 text-gray-900 mb-4">PASSWORD CHANGE
+                </h1>
+                <h1 class="h6 text-gray-1000 mb-4">Protect your account with a safe password!</h1>
+              </div>
+              <form class="user" id = 'cp_form' onsubmit="return formCheck(this)">
+                <div class="form-group row">
+                </div>
+                <div class="form-group">
+                  <input type="password" class="form-control form-control-user" id="new_password" name="new_password" placeholder="New Password"> 
+                </div>
+                <div class="form-group">
+                  <input type="password" class="form-control form-control-user" id="confirm_new_password" name="confirm_new_password" placeholder="Confirm Password">
+                </div>
+                <div class="form-group row">
+                </div>
+                <input type = "submit" value="Change Password" class="btn btn-warning btn-user btn-block"> 
+              </form>
+              <hr>
+              <div class="text-left">
+                <a class="small"> * Password must contain 1 letters, 1 number, 1 special character, between 8-16 long </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Bootstrap core JavaScript-->
+  <script src="/vendor/jquery/jquery.min.js"></script>
+  <script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Core plugin JavaScript-->
+  <script src="/vendor/jquery-easing/jquery.easing.min.js"></script>
+
+  <!-- Custom scripts for all pages-->
+  <script src="/js/sb-admin-2.min.js"></script>
+
+</body>
+
+</html>

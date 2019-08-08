@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>Heart Dog - ID CANCELLATION</title>
+
+  <!-- Custom fonts for this template-->
+  <link href="/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+
+  <!-- Custom styles for this template-->
+  <link href="/css/sb-admin-2.min.css" rel="stylesheet">
+
+{# ===============================Modal===================================== #}
+{# <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> #}
+{# ==================================================================== #}
+<script>
+    var getUSN = localStorage.getItem('USN');
+    if (getUSN === null) 
+      window.location.replace("http://teamd-iot.calit2.net/");
+</script>
+</head>
+
+{# ==================================================================== #}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script type="text/javascript">
+
+        var request;
+        $(document).ready(function () {
+            var getUSN = localStorage.getItem('USN');
+            console.log(getUSN);
+
+            $('#id_cancellation_form').submit(function (event) {
+                formCheck(this);
+                event.preventDefault();
+                if (request) {
+                    request.abort();
+                }
+
+                var pwd = $("#password").val();
+
+                request = $.post('/heartdog/id_cancellation/process', {
+                    USN: getUSN,
+                    password: pwd
+                });
+
+                // Callback handler that will be called on success
+                request.done(function (data) { // Log a message to the console
+                    if (data.result_code == 0) {
+                        alert(data.success_message);
+                        window.location.replace("http://teame-iot.calit2.net/");
+                    } else {
+                        alert(data.error_message);
+                        window.location.replace("http://teame-iot.calit2.net/heartdog/id_cancellation");
+                    }
+                });
+
+                // Callback handler that will be called on failure
+                request.fail(function (data) { // Log the error to the console
+                    alert("The following error occurred: " + data);
+
+                });
+            });
+        });
+
+        $(window).on('load', function () { // popup
+            var delayMs = 100; // delay in milliseconds
+            setTimeout(function () {
+                $('#myModal').modal('show');
+            }, delayMs);
+        });
+
+
+        function formCheck(frm) {
+            if (frm.password.value == "") {
+                alert("Please enter your password.");
+                frm.password.focus();
+                return false;
+            }          
+
+            var pass = $("#password").val();
+
+            var password_regex1 = /([a-z].*[A-Z])|([A-Z].*[a-z])([0-9])+([!,%,&,@,#,$,^,*,?,_,~])/;
+            var password_regex2 = /([0-9])/;
+            var password_regex3 = /([!,%,&,@,#,$,^,*,?,_,~])/;
+
+            if (pass.length < 8 || password_regex1.test(pass) == false || password_regex2.test(pass) == false || password_regex3.test(pass) == false) {
+                alert("Password Must be at least 8 Digitslong and contains one UpperCase, one LowerCase and One special character.");
+                return false;
+            } else {
+               return true;
+            }
+            
+        }
+    </script>
+    {# ==================================================================== #}
+    {% if error_message %}
+        <div class="modal fade" id="myModal">
+            <div class="modal-dialog modal-lg modal-dialog-centered " role="document">
+                <div class="modal-content ">
+                    <div class="modal-header text-danger">
+                        <h4 class="modal-title ">Notice</h4>
+                        <button aria-label="Close" class="close" data-dismiss="modal" type="button">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <p>{{error_message}}</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-secondary mx-auto" data-dismiss="modal" type="button">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% elseif success_message %}
+        <div class="modal fade" id="myModal">
+            <div class="modal-dialog modal-lg modal-dialog-centered " role="document">
+                <div class="modal-content ">
+                    <div class="modal-header ">
+                        <h4 class="modal-title ">Notice</h4>
+                        <button aria-label="Close" class="close" data-dismiss="modal" type="button">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <p>{{success_message}}</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-secondary mx-auto" data-dismiss="modal" type="button">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    {% endif %}
+    {# ==================================================================== #}
+
+
+<body class="bg-gradient-primary">
+
+  <div class="container">
+
+    <div class="card o-hidden border-0 shadow-lg my-5">
+      <div class="card-body p-0">
+        <!-- Nested Row within Card Body -->
+        <div class="row">
+          <div class="col-lg-5 d-none d-lg-block bg-register-image"></div>
+          <div class="col-lg-7">
+            <div class="p-5">
+              <div class="text-center">
+                <h1 class="h4 text-gray-900 mb-4">ID CANCELLATION</h1>
+                <h1 class="h6 text-gray-1000 mb-4">Please make sure to check the notice before submit your request for account cancellation.</h1>
+              </div>
+              <hr>
+              <hr>
+              <div class="text-left">
+                <a class="small"> - After submitting the request, All user information and related data will be deleted.</a>
+              </div>
+              <div class="text-left">
+                <a class="small"> - Also, You CANNOT REUSE or RESTORE your data.</a>
+              </div>
+              <form class="user" id = 'id_cancellation_form' method="post" onsubmit="return formCheck(this)">
+                <div class="form-group row">
+                </div>
+                <div class="form-group">
+                  <input type="password" class="form-control form-control-user" id="password" name="password" placeholder="Input Password">
+                </div>
+                <input type = "submit" value="Submit" class="btn btn-warning btn-user btn-block">
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Bootstrap core JavaScript-->
+  <script src="/vendor/jquery/jquery.min.js"></script>
+  <script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Core plugin JavaScript-->
+  <script src="/vendor/jquery-easing/jquery.easing.min.js"></script>
+
+  <!-- Custom scripts for all pages-->
+  <script src="/js/sb-admin-2.min.js"></script>
+
+</body>
+
+</html>

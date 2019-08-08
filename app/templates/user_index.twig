@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Heart Dog</title>
+
+    <!-- Custom fonts for this template-->
+    <link href="/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+
+    <!-- Custom styles for this template-->
+    <link href="/css/sb-admin-2.min.css" rel="stylesheet">
+
+    <style>
+    .btn { 
+      width:80px; 
+      height:40px; 
+      }
+    </style>
+
+
+
+  <script>
+    var getUSN = localStorage.getItem('USN');
+    if (getUSN === null)
+        window.location.replace("http://teame-iot.calit2.net/");
+  </script>
+
+  </head>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC7_u9Vi9-3E5PwjwtL-6e_-XHUoBLdmgk&callback=initMap">
+</script>
+<script type="text/javascript">
+var posting;
+var map;
+var markers = [];
+
+function deleteMarkers(markers) {
+    clearMarkers(markers);
+    markers = [];
+}
+// Removes the markers from the map, but keeps them in the array.
+function clearMarkers(markers) {
+    setMapOnAll(markers);
+}
+
+// Sets the map on all markers in the array.
+function setMapOnAll(markers) {
+    for (var i = 0; i < markers.length; i++) {
+        markers[i].setMap(null);
+    }
+}
+
+function showMarkers(map) {
+    setMapOnAll(map);
+}
+
+function initialize() {
+    var mapOptions = {
+        center: new google.maps.LatLng(32.882632, -117.234817),
+        zoom: 15,
+        mapTypeId: google.maps.MapTypeId.ROADMAP
+    };
+    map = new google.maps.Map(document.getElementById("map"),
+        mapOptions);
+
+
+    google.maps.event.addListener(map, 'idle', function () {
+        console.log('location is changed');
+        getJSON($('#selectedvalue').val());
+    });
+
+    
+
+}
+
+function getJSON(selected) {
+
+    if (posting) {
+        posting.abort();
+    }
+    var aNorth  =   map.getBounds().getNorthEast().lat();   
+    var aEast   =   map.getBounds().getNorthEast().lng();
+    var aSouth  =   map.getBounds().getSouthWest().lat();   
+    var aWest   =   map.getBounds().getSouthWest().lng();
+  
+    posting = $.post('/heartdog/airquality/get', {
+        value: selected,
+        north: aNorth,
+        east : aEast,
+        south : aSouth,
+        west : aWest 
+    }, function (returnedData) {
+        console.log(returnedData);
+    });
+
+    // Callback handler that will be called on success
+    posting.done(function (response, textStatus, jqXHR) { // Log a message to the console
+        if(response.result_code==1){
+            $("#showmessage").html('<mark>'+response.error_message+'</mark>');
+ 
+        }
+        else if (response.length == 0) {
+            $("#message").html(response.error_message);
+            $('#myModal').modal("show");
+
+        } else {
+            $("#showmessage").html('Click the marker');
+            deleteMarkers(markers);
+            var infowindow = new google.maps.InfoWindow();
+            var contentString = null;
+
+            for (res of response) {
+
+                var temp = JSON.parse(JSON.stringify(res));
+  
+                if(selected==="All") {
+ 
+                    contentString = "<span>senseor name : " + temp['sensor_name'] + "</a></span><br/> "+
+                    "CO : " + temp['CO'] + "<br />NO2 : "+temp['NO2']+"<br/>"+
+                    "O3 : " + temp['O3'] + "<br />SO2 : "+temp['SO2']+"<br/>"+
+                    "PM2.5 : " + temp['PM2_5'] + "<br />O3_AQI : "+temp['O3_AQI']+"<br/>"+
+                    "NO2_AQI : " + temp['NO2_AQI'] + "<br />CO_AQI : "+temp['CO_AQI']+"<br/>"+
+                    "SO2_AQI : " + temp['SO2_AQI'] + "<br />PM2.5_AQI : "+temp['PM2_5_AQI']+"<br/>"+
+                    "temperature : " + temp['temperature'] +"<br />"+
+                    "Location : " + temp['lat'] + " ," + temp['lng'] + "<br /><br />" + temp['air_timestamp'];
+                }else{
+                     contentString ="<span>senseor name : " + temp['sensor_name'] + "</a></span><br/> " 
+                      + selected +" : "+ temp[selected] + "<br />" + 
+                      "temperature : " + temp['temperature'] + "<br/>"+
+                      "Location : "+ temp['lat'] + " ," + temp['lng'] + "<br /><br />" + temp['air_timestamp'];
+                }
+   
+
+                var marker = new google.maps.Marker({
+                    map: map,
+                    position: new google.maps.LatLng(temp.lat,temp.lng),
+                   
+                })
+
+                markers.push(marker);
+                google.maps.event.addListener(marker, 'click', function (content) {
+                    return function () {
+                        infowindow.setContent(content); //set the content
+                        infowindow.open(map, this);
+                    }
+                }(contentString));
+            } // end of for statement
+  
+            setMapOnAll(map);
+   
+
+        } // end of done
+    });
+    // Callback handler that will be called on failure
+    posting.fail(function (jqXHR, textStatus, errorThrown) { // Log the error to the console
+
+        $("#message").html("The following error occurred :  " + textStatus,
+            errorThrown);
+            $('#myModal').modal("show");
+
+    });
+    posting = "";
+    
+}
+
+
+$(window).load(function () {
+    getJSON( $('#selectedvalue').val());
+      
+});
+
+</script>
+
+
+{# ==================================================================== #}
+<div class="modal fade" id="myModal">
+    <div class="modal-dialog modal-lg modal-dialog-centered " role="document">
+        <div class="modal-content ">
+            <div class="modal-header text-danger">
+                <h4 class="modal-title ">Notification</h4>
+                <button aria-label="Close" class="close" data-dismiss="modal" type="button">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p id="message"></p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary mx-auto" data-dismiss="modal" type="button">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{# ---------------------------------------------------- #}
+
+<input type="hidden" value="All" id="selectedvalue" />
+
+<body onload="initialize()">
+
+
+<div class="container-fluid">
+  <div>
+    <div>
+        <button id="All_button" class="btn" style="background-color:#fcc056 ; border:1px #fcc056 solid;"  value="All">All</button>
+        <button id="CO_button" class="btn" style="background-color:#d4d17f ; border:1px #d4d17f solid;" value="CO">CO</button>
+        <button id="SO2_button" class="btn" style="background-color:#d49d7f ; border:1px #d49d7f solid;" value="SO2">SO2</button>
+        <button id="NO2_button" class="btn" style="background-color:#d47f96 ; border:1px #d47f96 solid;" value="NO2">NO2</button>
+        <button id="O3_button" class="btn" style="background-color:#7fc7d4 ; border:1px #7fc7d4 solid;" value="O3">O3</button>
+        <button id="PM2_5_button" class="btn" style="background-color:#7fa0d4 ; border:1px #7fa0d4 solid;" value="PM2_5">PM2.5</button>
+    </div>
+    
+    <div id="map" style="width:640px; height:480px;"></div>
+    <big class="text-justify font-weight-bold" id="showmessage"></big>
+  </div>
+
+
+  <!-- Bootstrap core JavaScript-->
+  <script src="/vendor/jquery/jquery.min.js"></script>
+  <script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Core plugin JavaScript-->
+  <script src="/vendor/jquery-easing/jquery.easing.min.js"></script>
+
+  <!-- Custom scripts for all pages-->
+  <script src="/js/sb-admin-2.min.js"></script>
+
+</body>
+
+</html>
